@@ -7,8 +7,7 @@
 #### Тесты : ---нет---
 ---
 ## 2) http://162.55.220.72:5005/user_info
-### req. (RAW JSON)
-### POST
+### Params (raw_json):
         {
             "age" : 30,
             "salary" : 1000,
@@ -16,7 +15,7 @@
             "auth_token" : "/s34lfgbj/None/jjd909/58316kjkWpqc1036None238912evny"
         }
 
-### resp.
+### Response:
         {
             'start_qa_salary':salary,
             'qa_salary_after_6_months': salary * 2,
