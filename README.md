@@ -31,7 +31,7 @@
 #### Переменные:
 - var requestData = JSON.parse(pm.request.body.raw);
 - var responseData = pm.response.json();
-- <details>
+<details>
   <summary>JSON Schema</summary>
                 const schema = {
                   "type": "object",
