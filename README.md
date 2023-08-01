@@ -1,14 +1,14 @@
-## Postman-3
-## 1)
-    ### POST
-    ### http://162.55.220.72:5005/login
-    ### login : postlogin
-    ### password : postpass
+# Postman-3
+### 1)
+### POST
+### http://162.55.220.72:5005/login
+### login : postlogin
+### password : postpass
 
-## Получаю токен : /s34lfgbj/None/jjd909/58316kjkWpqc1036None238912evny
-## В окружении создаю переменную auth_token со значением токена, которая будет далее передаваться в запросы
+### Получаю токен : /s34lfgbj/None/jjd909/58316kjkWpqc1036None238912evny
+### В окружении создаю переменную auth_token со значением токена, которая будет далее передаваться в запросы
 
-## Тесты : ---нет---
+### Тесты : ---нет---
 
 ## 2) http://162.55.220.72:5005/user_info
 ### req. (RAW JSON)
