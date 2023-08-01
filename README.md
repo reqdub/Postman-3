@@ -114,7 +114,7 @@
 #### Переменные:
 - var RQ = pm.request.body.formdata;
 - var RSP = pm.response.json();
-- <details>
+<details>
         <summary>JSON Schema</summary>
           var schema = {
                         "type": "object",
