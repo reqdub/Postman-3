@@ -1,18 +1,18 @@
-# Postman-3
-#1)
-    ##POST
-    ##http://162.55.220.72:5005/login
-    ##login : postlogin
-    ##password : postpass
+## Postman-3
+## 1)
+    ### POST
+    ### http://162.55.220.72:5005/login
+    ### login : postlogin
+    ### password : postpass
 
-##Получаю токен : /s34lfgbj/None/jjd909/58316kjkWpqc1036None238912evny
-##в окружении создаю переменную auth_token со значением токена, которая будет далее передаваться в запросы
+## Получаю токен : /s34lfgbj/None/jjd909/58316kjkWpqc1036None238912evny
+## В окружении создаю переменную auth_token со значением токена, которая будет далее передаваться в запросы
 
-##Тесты : ---нет---
+## Тесты : ---нет---
 
-#2) http://162.55.220.72:5005/user_info
-##req. (RAW JSON)
-##POST
+## 2) http://162.55.220.72:5005/user_info
+### req. (RAW JSON)
+### POST
         {
             "age" : 30,
             "salary" : 1000,
@@ -20,7 +20,7 @@
             "auth_token" : "/s34lfgbj/None/jjd909/58316kjkWpqc1036None238912evny"
         }
 
-##resp.
+### resp.
         {
             'start_qa_salary':salary,
             'qa_salary_after_6_months': salary * 2,
@@ -32,12 +32,12 @@
                         }
         }
 
-##Тесты:
-1) Статус код 200
+### Тесты:
+## 1) Статус код 200
     pm.test("Status code is 200", function () {
         pm.response.to.have.status(200);
     });
-2) Проверка структуры json в ответе.
+## 2) Проверка структуры json в ответе.
     const schema = {
     "type": "object",
     "properties": {
@@ -75,8 +75,8 @@
     "start_qa_salary": {
       "type": "number"
     }
-    }
-    }
+  }
+}
 4) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.
 5) Достать значение из поля 'u_salary_1.5_year' и передать в поле salary запроса http://162.55.220.72:5005/get_test_user
 ===================
