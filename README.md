@@ -209,73 +209,133 @@
 
 ---
 
-5) http://162.55.220.72:5005/get_test_user
-req.
-POST
-age: int
-salary: int
-name: str
-auth_token
+## 5) POST http://162.55.220.72:5005/get_test_user
+### Body (form-data):
+- age: 30
+- salary: 1000
+- name: Aleksey
+- auth_token: {{auth_token}}
 
-Resp.
-{'name': name,
- 'age':age,
- 'salary': salary,
- 'family':{'children':[['Alex', 24],['Kate', 12]],
- 'u_salary_1.5_year': salary * 4}
-  }
+### Response:
+        {
+         'name': name,
+         'age':age,
+         'salary': salary,
+         'family':{'children':[['Alex', 24],['Kate', 12]],
+         'u_salary_1.5_year': salary * 4}
+        }
 
-Тесты:
-1) Статус код 200
-2) Проверка структуры json в ответе.
-3) Проверить что занчение поля name = значению переменной name из окружения
-4) Проверить что занчение поля age в ответе соответсвует отправленному в запросе значению поля age
+### Тесты:
+#### Переменные:
+- var RSP = pm.response.json();
+- var RQ = pm.request.body.formdata;
+<details>
+        <summary>JSON Schema</summary>
+        var schema = {
+                "type": "object",
+                "required": [
+                        "age",
+                        "family",
+                        "name",
+                        "salary"
+                ],
+                "properties": {
+                        "age": {
+                                "type": "string"
+                        },
+                        "family": {
+                                "type": "object",
+                                "required": [
+                                        "children",
+                                        "u_salary_1_5_year"
+                                ],
+                                "properties": {
+                                        "children": {
+                                                "type": "array"
+                                        },
+                                        "u_salary_1_5_year": {
+                                                "type": "integer"
+                                        }
+                                }
+                        },
+                        "name": {
+                                "type": "string"
+                        },
+                        "salary": {
+                                "type": "integer"
+                        }
+                }
+        }
+</details>
 
-===================
+#### 1) Статус код 200
+        pm.test("Status code is 200", function () {
+            pm.response.to.have.status(200);
+        });
+#### 2) Проверка структуры json в ответе.
+        pm.test("Validate schema", () => {
+            pm.response.to.have.jsonSchema(schema);
+        });
+#### 3) Проверить что занчение поля name = значению переменной name из окружения
+        pm.test("Status code is 200", function () {
+            pm.expect(RSP.name).equal(pm.environment.get("name"));
+        });
+#### 4) Проверить что занчение поля age в ответе соответсвует отправленному в запросе значению поля age
+        pm.test("Status code is 200", function () {
+            pm.expect(RSP.age).equal(RQ.get("age"));
+        });
 
-6) http://162.55.220.72:5005/currency
-req.
-POST
-auth_token
+---
 
-Resp. Передаётся список массив объектов.
-[
-{"Cur_Abbreviation": str,
- "Cur_ID": int,
- "Cur_Name": str
-}
-…
-{"Cur_Abbreviation": str,
- "Cur_ID": int,
- "Cur_Name": str
-}
-]
+## 6) POST http://162.55.220.72:5005/currency
+### Body(form-data):
+- auth_token
 
-Тесты:
-1) Можете взять любой объект из присланного списка, используйте js random.
-В объекте возьмите Cur_ID и передать через окружение в следующий запрос.
+### Response:
+        [
+        {"Cur_Abbreviation": str,
+         "Cur_ID": int,
+         "Cur_Name": str
+        }
+        …
+        {"Cur_Abbreviation": str,
+         "Cur_ID": int,
+         "Cur_Name": str
+        }
+        ]
 
- ===================
+### Тесты:
+#### Переменные:
+- var random_currency = getRandomCurrency(pm.response.json().length);
+#### 1) Можете взять любой объект из присланного списка, используйте js random.
+        function getRandomCurrency(number) {
+          return Math.floor(Math.random() * number);
+        }
+#### 2) В объекте возьмите Cur_ID и передать через окружение в следующий запрос.
+        pm.environment.set("curr_id", pm.response.json()[random_currency]);
 
-7) http://162.55.220.72:5005/curr_byn
-req.
-POST
-auth_token
-curr_code: int
+---
 
-Resp.
-{
-    "Cur_Abbreviation": str
-    "Cur_ID": int,
-    "Cur_Name": str,
-    "Cur_OfficialRate": float,
-    "Cur_Scale": int,
-    "Date": str
-}
+## 7) POST http://162.55.220.72:5005/curr_byn
+### Body(form-data):
+- auth_token: {{auth_token}}
+- curr_code: {{curr_id}}
 
-Тесты:
-1) Статус код 200
-2) Проверка структуры json в ответе.
+### Response:
+        {
+            "Cur_Abbreviation": str
+            "Cur_ID": int,
+            "Cur_Name": str,
+            "Cur_OfficialRate": float,
+            "Cur_Scale": int,
+            "Date": str
+        }
+
+### Тесты:
+#### Переменные:
+
+#### 1) Статус код 200
+#### 2) Проверка структуры json в ответе.
 
 
 ===============
