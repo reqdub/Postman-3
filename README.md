@@ -1,7 +1,5 @@
 # Postman-3
-#### 1)
-#### POST
-#### http://162.55.220.72:5005/login
+#### 1) POST http://162.55.220.72:5005/login
 #### login : postlogin
 #### password : postpass
 
