@@ -154,7 +154,7 @@
 ---
 
 ## 4) POST http://162.55.220.72:5005/test_pet_info
-### Body (form-data)
+### Body (form-data):
 -age: 2
 -weight: 8
 -name: Chucha
