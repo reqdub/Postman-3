@@ -154,26 +154,48 @@
 
 ---
 
-4) http://162.55.220.72:5005/test_pet_info
-req.
-POST
-age: int
-weight: int
-name: str
-auth_token
+## 4) POST http://162.55.220.72:5005/test_pet_info
+### Body (form-data)
+-age: 2
+-weight: 8
+-name: Chucha
+-auth_token: {{auth_token}}
 
+### Response
+        {
+        'name': name,
+         'age': age,
+         'daily_food':weight * 0.012,
+         'daily_sleep': weight * 2.5
+         }
 
-Resp.
-{'name': name,
- 'age': age,
- 'daily_food':weight * 0.012,
- 'daily_sleep': weight * 2.5}
-
-
-Тесты:
-1) Статус код 200
-2) Проверка структуры json в ответе.
-3) В ответе указаны коэффициенты умножения weight, напишите тесты по проверке правильности результата перемножения на коэффициент.
+### Тесты:
+### Переменные:
+-var RQ = pm.request.body.formdata;
+-var RSP = pm.response.json();
+<details>
+        <summary>JSON Schema</summary>
+        var schema = {
+        "type": "object",
+        "properties": {
+                        "age": {
+                                "type": "number"
+                        },
+                        "daily_food": {
+                                "type": "number"
+                        },
+                        "daily_sleep": {
+                                "type": "number"
+                        },
+                        "name": {
+                                "type": "string"
+                        }
+                }
+        }
+</details>
+#### 1) Статус код 200
+#### 2) Проверка структуры json в ответе.
+#### 3) В ответе указаны коэффициенты умножения weight, напишите тесты по проверке правильности результата перемножения на коэффициент.
 
 ===================
 
