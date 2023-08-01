@@ -115,20 +115,20 @@
 - var RQ = pm.request.body.formdata;
 - var RSP = pm.response.json();
 - <details>
-  <summary>JSON Schema</summary>
+        <summary>JSON Schema</summary>
           var schema = {
-                	"type": "object",
-                	"properties": {
-                		"age": {
-                			"type": "number"
-                		},
-                		"name": {
-                			"type": "string"
+                        "type": "object",
+                        "properties": {
+                                "age": {
+                                        "type": "number"
+                                },
+                                "name": {
+                                        "type": "string"
                         },
-                		"salary": {
-                			"type": "array"
-                		}
-                	}
+                                "salary": {
+                                        "type": "array"
+                                }
+                        }
                 }
 </details>
 #### 1) Статус код 200
