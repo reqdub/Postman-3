@@ -151,7 +151,6 @@
             pm.expect(+RSP.salary[2]).greaterThan(RSP.salary[0]);
             pm.expect(+RSP.salary[2]).greaterThan(+RSP.salary[1]);
         });
-
 ---
 
 ## 4) POST http://162.55.220.72:5005/test_pet_info
