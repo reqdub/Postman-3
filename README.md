@@ -33,45 +33,48 @@
         pm.response.to.have.status(200);
     });
 #### 2) Проверка структуры json в ответе
-    const schema = {
-    "type": "object",
-    "properties": {
-    "person": {
-      "type": "object",
-      "properties": {
-        "u_age": {
-          "type": "number"
-        },
-        "u_name": {
-          "type": "array",
-          "items": [
-            {
-              "type": "string"
+<details>
+  <summary>Spoiler warning</summary>
+        const schema = {
+          "type": "object",
+          "properties": {
+            "person": {
+              "type": "object",
+              "properties": {
+                "u_age": {
+                  "type": "number"
+                },
+                "u_name": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "u_salary_1_5_year": {
+                  "type": "number"
+                }
+              }
             },
-            {
+            "qa_salary_after_12_months": {
               "type": "number"
             },
-            {
+            "qa_salary_after_6_months": {
+              "type": "number"
+            },
+            "start_qa_salary": {
               "type": "number"
             }
-          ]
-        },
-        "u_salary_1_5_year": {
-          "type": "number"
+          }
         }
-      }
-    },
-    "qa_salary_after_12_months": {
-      "type": "number"
-    },
-    "qa_salary_after_6_months": {
-      "type": "number"
-    },
-    "start_qa_salary": {
-      "type": "number"
-    }
-  }
-}
+</details>
 4) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.
 5) Достать значение из поля 'u_salary_1.5_year' и передать в поле salary запроса http://162.55.220.72:5005/get_test_user
 ===================
