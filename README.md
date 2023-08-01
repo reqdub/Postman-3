@@ -1,6 +1,4 @@
 # Postman-3
-postman hw #3
-
 #1)
     ##POST
     ##http://162.55.220.72:5005/login
