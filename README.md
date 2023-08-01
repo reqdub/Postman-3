@@ -28,12 +28,8 @@
         }
 
 ### Тесты:
-#### 1) Статус код 200
-    pm.test("Status code is 200", function () {
-        pm.response.to.have.status(200);
-    });
-#### 2) Проверка структуры json в ответе
-<details>
+#### Переменные:
+- <details>
   <summary>JSON Schema</summary>
                 const schema = {
                   "type": "object",
@@ -75,8 +71,27 @@
                   }
                 }
 </details>
-4) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.
-5) Достать значение из поля 'u_salary_1.5_year' и передать в поле salary запроса http://162.55.220.72:5005/get_test_user
+- var requestData = JSON.parse(pm.request.body.raw);
+- var responseData = pm.response.json();
+
+#### 1) Статус код 200
+    pm.test("Status code is 200", function () {
+        pm.response.to.have.status(200);
+    });
+#### 2) Проверка структуры json в ответе
+        pm.test("Validate schema", () => {
+                pm.response.to.have.jsonSchema(schema);
+        });
+
+#### 3) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент
+        pm.test("Validate salarie coefficients", () => {
+            pm.expect(responseData["start_qa_salary"]).equal(requestData["salary"]);
+            pm.expect(responseData["qa_salary_after_6_months"]).equal(requestData["salary"] * 2);
+            pm.expect(responseData["qa_salary_after_12_months"]).equal(requestData["salary"] * 2.9);
+            pm.expect(responseData["person"]["u_salary_1_5_year"]).equal(requestData["salary"] * 4);
+        });
+
+#### 4) Достать значение из поля 'u_salary_1.5_year' и передать в поле salary запроса http://162.55.220.72:5005/get_test_user
 ===================
 
 3) http://162.55.220.72:5005/new_data
