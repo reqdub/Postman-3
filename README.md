@@ -170,8 +170,8 @@
 
 ### Тесты:
 #### Переменные:
--var RQ = pm.request.body.formdata;
--var RSP = pm.response.json();
+- var RQ = pm.request.body.formdata;
+- var RSP = pm.response.json();
 <details>
         <summary>JSON Schema</summary>
         var schema = {
