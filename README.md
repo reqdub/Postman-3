@@ -155,10 +155,10 @@
 
 ## 4) POST http://162.55.220.72:5005/test_pet_info
 ### Body (form-data):
--age: 2
--weight: 8
--name: Chucha
--auth_token: {{auth_token}}
+- age: 2
+- weight: 8
+- name: Chucha
+- auth_token: {{auth_token}}
 
 ### Response
         {
@@ -169,7 +169,7 @@
          }
 
 ### Тесты:
-### Переменные:
+#### Переменные:
 -var RQ = pm.request.body.formdata;
 -var RSP = pm.response.json();
 <details>
@@ -192,11 +192,22 @@
                 }
         }
 </details>
-#### 1) Статус код 200
-#### 2) Проверка структуры json в ответе.
-#### 3) В ответе указаны коэффициенты умножения weight, напишите тесты по проверке правильности результата перемножения на коэффициент.
 
-===================
+#### 1) Статус код 200
+        pm.test("Status code is 200", function () {
+            pm.response.to.have.status(200);
+        });
+#### 2) Проверка структуры json в ответе.
+        pm.test("Coeficcients check", function () {
+            pm.expect(RSP.daily_food).equal(RQ.get("weight") * 0.012);
+            pm.expect(RSP.daily_sleep).equal(RQ.get("weight") * 2.5);
+        });
+#### 3) В ответе указаны коэффициенты умножения weight, напишите тесты по проверке правильности результата перемножения на коэффициент.
+        pm.test("Validate schema", () => {
+            pm.response.to.have.jsonSchema(schema);
+        });
+
+---
 
 5) http://162.55.220.72:5005/get_test_user
 req.
