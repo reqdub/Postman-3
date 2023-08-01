@@ -29,6 +29,8 @@
 
 ### Тесты:
 #### Переменные:
+- var requestData = JSON.parse(pm.request.body.raw);
+- var responseData = pm.response.json();
 - <details>
   <summary>JSON Schema</summary>
                 const schema = {
@@ -71,8 +73,6 @@
                   }
                 }
 </details>
-- var requestData = JSON.parse(pm.request.body.raw);
-- var responseData = pm.response.json();
 
 #### 1) Статус код 200
     pm.test("Status code is 200", function () {
