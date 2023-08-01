@@ -1,37 +1,40 @@
 # Postman-3
 postman hw #3
 
-1)
-POST
-http://162.55.220.72:5005/login
-login : postlogin
-password : postpass
+#1)
+    ##POST
+    ##http://162.55.220.72:5005/login
+    ##login : postlogin
+    ##password : postpass
 
-Получаю токен : /s34lfgbj/None/jjd909/58316kjkWpqc1036None238912evny
-в окружении создаю переменную auth_token со значением токена, которая будет далее передаваться в запросы
+##Получаю токен : /s34lfgbj/None/jjd909/58316kjkWpqc1036None238912evny
+##в окружении создаю переменную auth_token со значением токена, которая будет далее передаваться в запросы
 
-Тесты : ---нет---
+##Тесты : ---нет---
 
-2) http://162.55.220.72:5005/user_info
-req. (RAW JSON)
-POST
-{
-    "age" : 30,
-    "salary" : 1000,
-    "name" : "Aleksey",
-    "auth_token" : "/s34lfgbj/None/jjd909/58316kjkWpqc1036None238912evny"
-}
+#2) http://162.55.220.72:5005/user_info
+##req. (RAW JSON)
+##POST
+        {
+            "age" : 30,
+            "salary" : 1000,
+            "name" : "Aleksey",
+            "auth_token" : "/s34lfgbj/None/jjd909/58316kjkWpqc1036None238912evny"
+        }
 
-resp.
-{'start_qa_salary':salary,
- 'qa_salary_after_6_months': salary * 2,
- 'qa_salary_after_12_months': salary * 2.9,
- 'person': {'u_name':[user_name, salary, age],
-                                'u_age':age,
-                                'u_salary_1.5_year': salary * 4}
-                                }
+##resp.
+        {
+            'start_qa_salary':salary,
+            'qa_salary_after_6_months': salary * 2,
+            'qa_salary_after_12_months': salary * 2.9,
+            'person': {
+                        'u_name':[user_name, salary, age],
+                        'u_age':age,
+                        'u_salary_1.5_year': salary * 4
+                        }
+        }
 
-Тесты:
+##Тесты:
 1) Статус код 200
     pm.test("Status code is 200", function () {
         pm.response.to.have.status(200);
