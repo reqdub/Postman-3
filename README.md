@@ -92,27 +92,66 @@
         });
 
 #### 4) Достать значение из поля 'u_salary_1.5_year' и передать в поле salary запроса http://162.55.220.72:5005/get_test_user
-===================
+        pm.environment.set("salary", responseData.person.u_salary_1_5_year);
 
-3) http://162.55.220.72:5005/new_data
-req.
-POST
-age: int
-salary: int
-name: str
-auth_token
+---
 
-Resp.
-{'name':name,
-  'age': int(age),
-  'salary': [salary, str(salary*2), str(salary*3)]}
+## 3) POST http://162.55.220.72:5005/new_data
+### Body form-data:
+- age: 30
+- salary: 1000
+- name: Aleksey
+- auth_token = {{auth_token}}
 
-Тесты:
-1) Статус код 200
-2) Проверка структуры json в ответе.
-3) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.
-4) проверить, что 2-й элемент массива salary больше 1-го и 0-го
-===================
+### Response:
+        {
+          'name':name,
+          'age': int(age),
+          'salary': [salary, str(salary*2), str(salary*3)]
+        }
+
+### Тесты:
+#### Переменные:
+- var RQ = pm.request.body.formdata;
+- var RSP = pm.response.json();
+- <details>
+  <summary>JSON Schema</summary>
+          var schema = {
+                	"type": "object",
+                	"properties": {
+                		"age": {
+                			"type": "number"
+                		},
+                		"name": {
+                			"type": "string"
+                        },
+                		"salary": {
+                			"type": "array"
+                		}
+                	}
+                }
+</details>
+#### 1) Статус код 200
+        pm.test("Status code is 200", function () {
+            pm.response.to.have.status(200);
+        });
+#### 2) Проверка структуры json в ответе.
+        pm.test("Validate schema", () => {
+            pm.response.to.have.jsonSchema(schema);
+        });
+#### 3) В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.
+        pm.test("Coeficcients check", () => {
+            pm.expect(RSP.salary[0]).equal(+RQ.get("salary"));
+            pm.expect(+RSP.salary[1]).equal(RQ.get("salary") * 2);
+            pm.expect(+RSP.salary[2]).equal(RQ.get("salary") * 3);
+        });
+#### 4) проверить, что 2-й элемент массива salary больше 1-го и 0-го
+        pm.test("Salaries compare", () => {
+            pm.expect(+RSP.salary[2]).greaterThan(RSP.salary[0]);
+            pm.expect(+RSP.salary[2]).greaterThan(+RSP.salary[1]);
+        });
+
+---
 
 4) http://162.55.220.72:5005/test_pet_info
 req.
