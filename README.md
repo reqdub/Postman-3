@@ -337,21 +337,61 @@
 #### 1) Статус код 200
 #### 2) Проверка структуры json в ответе.
 
+---
 
-===============
-***
-1) получить список валют
-2) итерировать список валют
-3) в каждой итерации отправлять запрос на сервер для получения курса каждой валюты
-4) если возвращается 500 код, переходим к следующей итреации
-5) если получаем 200 код, проверяем response json на наличие поля "Cur_OfficialRate"
-6) если поле есть, пишем в консоль инфу про фалюту в виде response
-{
-    "Cur_Abbreviation": str
-    "Cur_ID": int,
-    "Cur_Name": str,
-    "Cur_OfficialRate": float,
-    "Cur_Scale": int,
-    "Date": str
-}
-7) переходим к следующей итерации
+### 1) получить список валют
+### 2) итерировать список валют
+### 3) в каждой итерации отправлять запрос на сервер для получения курса каждой валюты
+### 4) если возвращается 500 код, переходим к следующей итреации
+### 5) если получаем 200 код, проверяем response json на наличие поля "Cur_OfficialRate"
+### 6) если поле есть, пишем в консоль инфу про фалюту в виде response
+        {
+            "Cur_Abbreviation": str
+            "Cur_ID": int,
+            "Cur_Name": str,
+            "Cur_OfficialRate": float,
+            "Cur_Scale": int,
+            "Date": str
+        }
+### 7) переходим к следующей итерации
+
+        pm.test("Star", () => {
+            var currencies_amount;
+            var request = {
+                url : 'http://54.157.99.22/currency',
+                method : 'POST',
+                header : '',
+                body : {
+                    mode : 'formdata',
+                    formdata : {key: "auth_token", value: "123"}
+                }
+            }
+        
+            pm.sendRequest(request, function (err, res) {
+                currencies_amount = res.json().length;
+                console.log("Total currencies amount = " + currencies_amount);
+                for (var i = 1; i < currencies_amount; i++) {
+                    var new_request = {
+                        url : 'http://54.157.99.22/curr_byn',
+                        method : 'POST',
+                        header : '',
+                        body : {
+                            mode : 'formdata',
+                            formdata : [
+                                {key: "auth_token", value: "123"},
+                                {key: "curr_code", value: i}
+                                ]
+                        }
+                    }
+                    pm.sendRequest(new_request, function (err, res) {
+                        if (res.code === 500 || res.code === undefined) {
+                        }
+                        if(res.code === 200){
+                            if (pm.expect(res.json()).property("Cur_OfficialRate")){
+                                console.log(res.json());
+                            }
+                        }
+                    });
+                }
+            });
+        });
