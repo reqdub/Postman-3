@@ -369,7 +369,6 @@
         
             pm.sendRequest(request, function (err, res) {
                 currencies_amount = res.json().length;
-                console.log("Total currencies amount = " + currencies_amount);
                 for (var i = 1; i < currencies_amount; i++) {
                     var new_request = {
                         url : 'http://54.157.99.22/curr_byn',
